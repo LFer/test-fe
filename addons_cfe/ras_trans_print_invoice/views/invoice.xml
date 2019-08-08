@@ -1,0 +1,76 @@
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="ras_print_invoice">
+			<field name="name">account.invoice.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='other_info']" position="after">
+					<page string="Impresión de Factura" name="cfe_page_print">
+						<group>
+							<group>
+								<field name="rt_service_id"/>
+								<field name="print_output_reference"/>
+								<field name="print_origin_destiny_grouped"/>
+							</group>
+							<group>
+								<field name="print_cont_grouped"/>
+								<field name="print_dmc_grouped"/>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="print_invoice_ref"/>
+								<field name="print_date_start"/>
+								<field name="print_ms_in_out"/>
+								<field name="print_mic"/>
+								<field name="print_crt"/>
+							</group>
+							<group>
+								<field name="print_consignee"/>
+								<field name="print_bl"/>
+								<field name="print_hours"/>
+								<field name="print_journals"/>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="print_origin_destiny_city"/>
+								<field name="print_origin_destiny_deposit"/>
+								<field name="print_origin_destiny"/>
+							</group>
+							<group>
+								<field name="print_container_number"/>
+								<field name="print_container_size"/>
+								<field name="print_booking"/>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="print_purchase_order"/>
+								<field name="print_gex"/>
+								<field name="print_sender"/>
+								<field name="print_dua"/>
+							</group>
+							<group>
+								<field name="print_packages"/>
+								<field name="print_kg"/>
+								<field name="print_volume"/>
+							</group>
+						</group>
+						<group>
+						    <div style="margin-bottom: -18px;">
+							<span>
+								<group>
+									<field name="print_extra_info"/>
+								</group>
+							</span>
+						    </div>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

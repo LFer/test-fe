@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="res.partner" id="partner_sin_receptor">
+        <field name='name'>Sin receptor</field>
+    </record>
+</odoo>

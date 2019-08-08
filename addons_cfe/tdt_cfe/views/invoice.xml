@@ -1,0 +1,75 @@
+<odoo>
+
+    <template id="assets_backend" name="custom assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/tdt_cfe/static/src/css/style.css"/>
+        </xpath>
+    </template>
+
+    <record model="ir.ui.view" id="tdt_cfe_invoice">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="cfe_emitido" attrs="{'readonly': True}" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="nc_motivo"/> 
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="required">True</attribute> 
+            </xpath>
+            <xpath expr="//field[@name='state']" position="before">
+                <button name="factura_contingencia" type="object" class="oe_highlight" string="FACTURA DE CONTINGENCIA" />
+            </xpath>
+
+            <xpath expr="//h1//field[@name='number']" position="after">
+                <div class="topcorner" name="qr_code">
+                    <field name="cfe_serie" nolabel="1" attrs="{'invisible': [('cfe_serie', '=', False)]}"/>
+                    <span attrs="{'invisible': [('cfe_emitido', '=', False)]}">-</span>
+                    <field name="cfe_numero" nolabel="1" attrs="{'invisible': [('cfe_emitido', '=', False)]}"/>
+                    <field name="cfe_qr_img" widget="image" nolabel="1" attrs="{'invisible': [('cfe_qr_img', '=', False)]}"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page string="Factura Electrónica" name="cfe_page_info" attrs="{'invisible': [('cfe_emitido', '=', False)]}">
+                    <group>
+                        <field name="cfe_fecha_hora_firma"/>
+                        <field name="cfe_url_para_verificar_qr" widget="url"/>
+                        <field name="cfe_url_para_verificar_texto" widget="url"/>
+                        <field name="cfe_cae_desde_nro"/>
+                        <field name="cfe_cae_hasta_nro"/>
+                        <field name="cfe_caena"/>
+                        <field name="cfe_caefa"/>
+                        <field name="cfe_caefd"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id='account_nc_wizard_form' model='ir.ui.view'>
+        <field name='name'>tdt_cfe.nc_wizard.form</field>
+        <field name='model'>tdt_cfe.account.nc_wizard</field>
+        <field name='arch' type='xml'>
+            <form>
+                <sheet>
+                <p>Está a punto de validar una nota de crédito que no tiene documento de origen o refiere a un documento que no está en el sistema. ¿Desea continuar de todas formas?</p>
+                </sheet>
+                <footer>
+                <button name='action_invoice_open'
+                string='Si, continuar.'
+                class='btn-primary'
+                type='object'/>
+                <button string='No, cancelar'
+                class='btn-default'
+                special='cancel'/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

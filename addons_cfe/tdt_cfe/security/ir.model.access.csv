@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_resguardo_user,account.resguardo.user,model_tdt_cfe_account_resguardo,account.group_account_user,account.group_account_manager,account.group_analytic_accounting,account.group_analytic_tags,account.group_account_invoice,1,1,1,1
+access_account_resguardo_line_user,account.resguardo.line.user,model_tdt_cfe_account_resguardo_line,account.group_account_user,account.group_account_manager,account.group_analytic_accounting,account.group_analytic_tags,account.group_account_invoice,1,1,1,1
+access_account_resguardo_line_totals_user,account.resguardo.line.totals.user,model_tdt_cfe_account_resguardo_line_totals,account.group_account_user,account.group_account_manager,account.group_analytic_accounting,account.group_analytic_tags,account.group_account_invoice,1,1,1,1
+
+

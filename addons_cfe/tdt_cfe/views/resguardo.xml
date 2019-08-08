@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?> <odoo>
+	<record model="ir.ui.view" id="resguardo_tree">
+		<field name="name">account.resguardo.tree</field>
+		<field name="model">tdt_cfe.account.resguardo</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<tree string="Resguardo">
+				<field name="partner_id" string="Receptor" invisible="1"/>
+				<field name="date_resguardo"/>
+				<field name="name"/>
+				<field name="journal_id" invisible="1"/>
+				<field name="company_id" string="Emisor" invisible="1"/>
+				<field name="currency_id" invisible="1"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	<act_window id="act_open_resguardo_tree" name="open_action_resguardo_tree" res_model="tdt_cfe.account.resguardo" view_mode="tree,form"/>
+	<record model="ir.actions.act_window.view" id="act_open_resguardo_tree_view">
+		<field name="act_window_id" ref="act_open_resguardo_tree"/>
+		<field name="view_id" ref="resguardo_tree"/>
+	</record>
+	<record id="resguardo_form" model="ir.ui.view">
+		<field name="name">account.resguardo.form</field>
+		<field name="model">tdt_cfe.account.resguardo</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Resguardo" class="o_invoice_form">
+				<header>
+					<button name="action_resguardo_open" id="btn_validate" type="object" class="oe_highlight" string="validate" attrs="{'invisible': [('state','!=','draft')]}"/>
+					<field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open,paid"/>
+				</header>
+				<sheet string="Resguardo">
+					<h1 class="mt0">
+						<field name="sequence_number_next_prefix" invisible="True"/>
+						<div attrs="{'invisible': [('sequence_number_next_prefix','=',False)]}">
+							<label for="name" string="Número de resguardo:"/>
+							<br/>
+							<field name="name"/>
+						</div>
+						<div class="topcorner" name="qr_code">
+						    <field name="cfe_serie" nolabel="1" attrs="{'invisible': [('cfe_serie', '=', False)]}"/>
+						    <span attrs="{'invisible': [('state', '=', 'draft')]}">-</span>
+						    <field name="cfe_numero" nolabel="1" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+						    <field name="cfe_qr_img" widget="image" nolabel="1" attrs="{'invisible': [('cfe_qr_img', '=', False)]}"/>
+						</div>
+					</h1>
+					<group>
+						<group>
+							<field name="date_resguardo"/>
+							<field name="partner_id" string="Receptor" widget="res_partner_many2one"/>
+							<field name="company_id" string="Emisor"/>
+							<field name="currency_id"/>
+							<field name="journal_id"/>
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string="Detalle">
+							<field name="resguardo_line_ids" nolabel="1" widget="section_and_note_one2many" mode="tree,kanban" context="{'journal_id': journal_id, 'default_resguardo_id': id}">
+								<tree string="Detalle" editable="bottom">
+									<control>
+										<create string="Add a line"/>
+									</control>
+									<field name="cod_retencion"/>
+									<field name="tax_id"/>
+									<field name="tax_rate"/>
+									<field name="amount_total"/>
+									<field name="amount_retained"/>
+									<field name="currency_id" invisible="True"/>
+									<field name="resguardo_id" invisible="True"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Totales" attrs="{'invisible': [('state', '=', 'draft')]}">
+							<field name="resguardo_line_totals_ids" nolabel="1" widget="section_and_note_one2many" mode="tree,kanban" context="{'journal_id': journal_id, 'default_resguardo_id': id}">
+								<tree string="Totales" editable="bottom">
+									<field name="cod_retencion"/>
+									<field name="amount_retained"/>
+									<field name="currency_id" invisible="True"/>
+									<field name="resguardo_id" invisible="True"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Información Extra">
+							<form string="Información Extra">
+								<field name="move_id"/>
+							</form>
+						</page>
+						<page string="Información del CFE" name="cfe_page_info">
+						    <group>
+							<field name="cfe_fecha_hora_firma"/>
+							<field name="cfe_url_para_verificar_qr" widget="url"/>
+							<field name="cfe_url_para_verificar_texto" widget="url"/>
+							<field name="cfe_cae_desde_nro"/>
+							<field name="cfe_cae_hasta_nro"/>
+							<field name="cfe_caena"/>
+							<field name="cfe_caefa"/>
+							<field name="cfe_caefd"/>
+						    </group>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<act_window id="act_open_resguardo_form" name="open_action_resguardo_form" res_model="tdt_cfe.account.resguardo" view_mode="form"/>
+	<record model="ir.actions.act_window.view" id="act_open_resguardo_form_view">
+		<field name="act_window_id" ref="act_open_resguardo_form"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="resguardo_form"/>
+	</record>
+	<record model="ir.ui.view" id="account_journal_dashboard_resguardo_customization">
+		<field name="name">account.journal.dashboard.kanban.resguardos</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+		<field name="type">kanban</field>
+		<field name="arch" type="xml">
+			<data>
+				<xpath expr="//div[1]/div[1]/t[2]" position="replace">
+					<t t-if="journal_type == 'sale' || journal_type == 'purchase' || journal_type == 'retencion_impositiva'" t-call="JournalBodySalePurchase"/>
+				</xpath>
+				<xpath expr="//t[@t-name='JournalBodySalePurchase']/div[1]/t[1]" position="before">
+					<t t-if="journal_type == 'retencion_impositiva'">
+						<button type="action" name="%(act_open_resguardo_form)d" class="btn btn-primary">
+							<span>Crear nuevo resguardo</span>
+						</button>
+					</t>
+				</xpath>
+				<xpath expr="//t[@t-name='JournalBodySalePurchase']/div[2]/div[1]/div[1]" position="inside">
+					<a type="object" name="open_resguardo_tree" context="{}">
+						<span t-if="journal_type == 'retencion_impositiva'" title="Resguardos a validar">
+							<t t-esc="dashboard.number_draft"/> Resguardos a validar</span>
+					</a>
+				</xpath>
+				<xpath expr="//t[@t-name='JournalBodySalePurchase']/div[2]/div[2]/div[1]" position="inside">
+					<a type="object" name="open_resguardo_tree" context="{}">
+						<span t-if="journal_type == 'retencion_impositiva'" title="Resguardos sin pagar">
+							<t t-esc="dashboard.number_waiting"/> Resguardos sin pagar</span>
+					</a>
+				</xpath>
+			</data>
+		</field>
+	</record>
+</odoo>

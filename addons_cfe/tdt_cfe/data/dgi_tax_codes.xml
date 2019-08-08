@@ -1,0 +1,18 @@
+<odoo>
+	<data noupdate="1">
+		<record id="excento" model="account.taxcode">
+			<field name="name">Excento</field>
+			<field name="code">1</field>
+		</record>
+
+		<record id="basico" model="account.taxcode">
+			<field name="name">Básico</field>
+			<field name="code">3</field>
+		</record>
+
+		<record id="minimo" model="account.taxcode">
+			<field name="name">Minima</field>
+			<field name="code">2</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="cfe_encabezado">
+    <t t-if="docs.es_e_factura()">
+        <eFact>
+                <t t-raw="0"/>
+        </eFact>
+    </t>
+    <t t-if="docs.es_e_ticket()">
+        <eTck>
+                <t t-raw="0"/>
+        </eTck>
+    </t>   
+    <t t-if="docs.es_e_factura_exp()">
+        <eFact_Exp>
+                <t t-raw="0"/>
+        </eFact_Exp>
+    </t>
+</template>
+</odoo>
+

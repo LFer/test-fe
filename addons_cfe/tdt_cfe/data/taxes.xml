@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="tag_tasa_basica_inc" model="account.account.tag">
+        <field name="name">IVA Ventas (22%) Incluido en precio</field>
+        <field name="applicability">taxes</field>
+    </record>
+    <record id="tag_tasa_minima_inc" model="account.account.tag">
+        <field name="name">IVA Ventas (10%) Incluido en precio</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tasa_basica_incluida_en_precio" model="account.tax.template">
+      <field name="chart_template_id" ref="l10n_uy.uy_chart_template"></field>
+      <!-- <field name="chart_template_id">1</field> -->
+      <field name="name">IVA Ventas (22%) Incluido en precio</field>
+      <field name="description">IVA Ventas (22%) Incluido en precio</field>
+      <field name="amount">22</field>
+      <field name="amount_type">percent</field>
+      <field name="price_include">True</field>
+      <field name="account_id" ref="l10n_uy.uy_code_5202"/>
+      <field name="refund_account_id" ref="l10n_uy.uy_code_5202"/>
+      <field name="type_tax_use">sale</field>
+      <field name="tag_ids" eval="[(6,0,[ref('tag_tasa_basica_inc')])]"/>
+    </record>
+
+    <record id="tasa_minima_incluida_en_precio" model="account.tax.template">
+      <field name="chart_template_id" ref="l10n_uy.uy_chart_template"></field>
+      <!-- <field name="chart_template_id">1</field> -->
+      <field name="name">IVA Ventas (10%) Incluido en precio</field>
+      <field name="description">IVA Ventas (10%) Incluido en precio</field>
+      <field name="amount">10</field>
+      <field name="amount_type">percent</field>
+      <field name="price_include">True</field>
+      <field name="account_id" ref="l10n_uy.uy_code_5201"/>
+      <field name="refund_account_id" ref="l10n_uy.uy_code_5201"/>
+      <field name="type_tax_use">sale</field>
+      <field name="tag_ids" eval="[(6,0,[ref('tag_tasa_minima_inc')])]"/>
+    </record>
+</odoo>
+

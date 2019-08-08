@@ -1,0 +1,18 @@
+<odoo>
+	<data>
+		<record model="ir.sequence" id="account_journal_resguardos_sequence">
+			<field name="name">Secuencia de resguardos</field>
+			<field name="implementation">standard</field>
+			<field name="padding">4</field>
+			<field name="prefix">RES</field>
+		</record>
+
+		<record model="account.journal" id="account_journal_resguardos">
+			<field name="name">Resguardos</field>
+			<field name="sequence_id" ref="account_journal_resguardos_sequence"/>
+			<field name="type">retencion_impositiva</field>
+			<field name="color">11</field>
+			<field name="code">RES</field>
+		</record>
+	</data>
+</odoo>

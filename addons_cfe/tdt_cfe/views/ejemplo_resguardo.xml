@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="ejemplo_resguardo">
+&lt;?xml version='1.0' encoding='utf-8'?&gt;
+<CFE version="1.0" xmlns="http://cfe.dgi.gub.uy">
+	<eResg>
+		<Encabezado>
+			<IdDoc>
+				<TipoCFE>182</TipoCFE>
+				<FchEmis>2015-02-01</FchEmis>
+			</IdDoc>
+			<Emisor>
+				<RUCEmisor>215521750017</RUCEmisor>
+				<RznSoc>ZABALETA ASOCIADOS SRL</RznSoc>
+				<CdgDGISucur>4</CdgDGISucur>
+				<DomFiscal>Dr. Francisco Bilbao 3823</DomFiscal>
+				<Ciudad>Montevideo</Ciudad>
+				<Departamento>Montevideo</Departamento>
+			</Emisor>
+			<Receptor>
+				<TipoDocRecep>3</TipoDocRecep>
+				<CodPaisRecep>UY</CodPaisRecep>
+				<DocRecep>13353214</DocRecep>
+				<RznSocRecep>Juan Perez</RznSocRecep>
+				<PaisRecep>Uruguay</PaisRecep>
+			</Receptor>
+			<Totales>
+				<TpoMoneda>UYU</TpoMoneda>
+				<MntTotRetenido>32000</MntTotRetenido>
+				<CantLinDet>1</CantLinDet>
+				<RetencPercep>
+					<CodRet>2183114</CodRet>
+					<ValRetPerc>22000</ValRetPerc>
+				</RetencPercep>
+				<RetencPercep>
+					<CodRet>2183121</CodRet>
+					<ValRetPerc>10000</ValRetPerc>
+				</RetencPercep>
+			</Totales>
+		</Encabezado>
+		<Detalle>
+			<Item>
+				<NroLinDet>1</NroLinDet>
+				<RetencPercep>
+					<CodRet>2183114</CodRet>
+					<Tasa>22</Tasa>
+					<MntSujetoaRet>90000</MntSujetoaRet>
+					<ValRetPerc>19800</ValRetPerc>
+				</RetencPercep>
+				<RetencPercep>
+					<CodRet>2183114</CodRet>
+					<Tasa>22</Tasa>
+					<MntSujetoaRet>10000</MntSujetoaRet>
+					<ValRetPerc>2200</ValRetPerc>
+				</RetencPercep>
+				<RetencPercep>
+					<CodRet>2183121</CodRet>
+					<Tasa>10</Tasa>
+					<MntSujetoaRet>100000</MntSujetoaRet>
+					<ValRetPerc>10000</ValRetPerc>
+				</RetencPercep>
+			</Item>
+		</Detalle>
+	</eResg>
+</CFE>
+</template>
+</odoo>

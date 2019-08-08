@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="cfe">
+&lt;?xml version='1.0' encoding='utf-8'?&gt;
+<CFE xmlns="http://cfe.dgi.gub.uy" version="1.0">
+	<t t-call="tdt_cfe.cfe_encabezado">
+		<Encabezado>
+			<IdDoc>
+				<TipoCFE t-esc="docs.tipo_cfe"></TipoCFE>
+				<FchEmis t-esc="docs.date_invoice"></FchEmis>
+				<FmaPago t-esc="docs.payment_term_id.payment_type"></FmaPago>
+				<!--<t t-if="docs.date_due"> <FchVenc t-esc="docs.date_due"></FchVenc> </t>--> 
+				<t t-if="docs.tipo_cfe == 121"><ClauVenta>N/A</ClauVenta></t>
+			</IdDoc>
+			<Emisor>
+				<t t-set="company" t-value="docs.env.user.company_id" />
+				<RUCEmisor t-esc="company.vat[2:len(company.vat)]"></RUCEmisor>
+				<RznSoc t-esc="company.name"></RznSoc>
+				<CdgDGISucur t-esc="company.codigo_dgi_sucursal"></CdgDGISucur>
+				<DomFiscal t-esc="company.street"></DomFiscal>
+				<Ciudad t-esc="company.city"></Ciudad>
+				<Departamento t-esc="company.state_id.name"></Departamento>
+			</Emisor>
+			<t t-if="docs.tiene_receptor()">
+				<Receptor>
+					<t t-if="not docs.es_e_ticket() or (docs.es_e_ticket() and not docs.es_e_ticket_rut_extranjero() and docs.monto_mayor_diez_mil_ui())">
+						<TipoDocRecep t-esc="docs.partner_id.tipo_documento"></TipoDocRecep>
+						<CodPaisRecep t-esc="docs.partner_id.codigo_pais()"></CodPaisRecep>
+						<DocRecep t-if="docs.partner_id.tiene_documento_nacional()" t-esc="docs.partner_id.vat[2:len(company.vat)]"></DocRecep>
+						<DocRecepExt t-if="(not docs.partner_id.tiene_documento_nacional()) and docs.partner_id.vat" t-esc="docs.partner_id.vat[2:len(company.vat)]"></DocRecepExt>
+					</t>
+					<RznSocRecep t-esc="docs.partner_id.name"></RznSocRecep>
+					<DirRecep t-if="docs.partner_id.street" t-esc="docs.partner_id.street"></DirRecep>
+					<CiudadRecep t-if="docs.partner_id.city" t-esc="docs.partner_id.city"></CiudadRecep>
+					<DeptoRecep t-if="docs.partner_id.state_id.name" t-esc="docs.partner_id.state_id.name"></DeptoRecep>
+					<PaisRecep t-if="docs.partner_id.country_id.name and docs.partner_id.country_id.name != 'Uruguay'" t-esc="docs.partner_id.country_id.name"></PaisRecep>
+
+				</Receptor>
+			</t>
+			<Totales>
+				<TpoMoneda t-esc="docs.currency_id.name"></TpoMoneda>
+				<TpoCambio t-if="docs.not_in_pesos()" t-esc="docs.tipo_de_cambio()"></TpoCambio>
+				<MntNoGrv t-if="docs.existe_monto_neto_sin_iva()" t-esc="docs.monto_neto_sin_iva()"></MntNoGrv>
+				<MntNetoIvaTasaMin t-if="docs.existe_monto_neto_a_tasa_minima()" t-esc="docs.monto_neto_a_tasa_minima()"></MntNetoIvaTasaMin>
+				<MntNetoIVATasaBasica t-if="docs.existe_monto_neto_a_tasa_basica()" t-esc="docs.monto_neto_a_tasa_basica()"></MntNetoIVATasaBasica>
+				<IVATasaMin t-esc="docs.tasa_minima()"></IVATasaMin>
+				<IVATasaBasica t-esc="docs.tasa_basica()"></IVATasaBasica>
+				<MntIVATasaMin t-if="docs.existe_monto_neto_a_tasa_minima()" t-esc="docs.monto_iva_a_tasa_minima()"></MntIVATasaMin>
+				<MntIVATasaBasica t-if="docs.existe_monto_neto_a_tasa_basica()" t-esc="docs.monto_iva_a_tasa_basica()"></MntIVATasaBasica>
+				<MntTotal t-esc="docs.amount_total"></MntTotal>
+				<CantLinDet t-esc="len(docs.invoice_line_ids)"></CantLinDet>
+				<MntPagar t-esc="docs.amount_total"></MntPagar>
+			</Totales>
+		</Encabezado>
+		<Detalle>
+			<Item t-foreach="docs.invoice_line_ids" t-as="li">
+				<NroLinDet t-esc="int(li_index + 1)"></NroLinDet>
+				<IndFact t-esc="li.indice_facturacion()"></IndFact>
+				<NomItem t-esc="li.name"></NomItem>
+				<Cantidad t-esc="int(li.quantity)"></Cantidad>
+				<UniMed>N/A</UniMed>
+				<PrecioUnitario t-esc="li.precio_unitario()"></PrecioUnitario>
+				<MontoItem t-esc="li.price_subtotal"></MontoItem>
+			</Item>
+		</Detalle>
+		<Referencia t-if = "docs.es_nota_credito() and docs.nc_tiene_origen()">
+			<t t-set="origen" t-value = "docs.obtener_factura_original()" />
+			<Referencia t-foreach = "docs.invoice_line_ids" t-as="li">
+				<NroLinRef t-esc = "int(li_index + 1)"></NroLinRef>
+				<TpoDocRef t-esc="origen.tipo_cfe"></TpoDocRef>
+				<Serie t-esc = "origen.serie()"></Serie>
+				<NroCFERef t-esc = "origen.numero_cfe()"></NroCFERef>
+				<FechaCFEref t-esc = "origen.date_invoice"></FechaCFEref>
+			</Referencia>
+		</Referencia>
+		<Referencia t-if = "docs.es_nota_credito() and not docs.nc_tiene_origen()">
+			<Referencia t-foreach = "docs.invoice_line_ids" t-as="li">
+				<NroLinRef t-esc = "int(li_index + 1)"></NroLinRef>
+				<IndGlobal>1</IndGlobal>
+				<RazonRef t-esc = "docs.nc_motivo"></RazonRef>
+			</Referencia>
+		</Referencia>
+	</t>
+</CFE>
+</template>
+</odoo>
+

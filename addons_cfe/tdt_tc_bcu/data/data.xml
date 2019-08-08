@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="res.currency" id="BCU_UI">
+        <field name='name'>U.I.</field>
+        <field name='rounding'>1</field>
+        <field name='decimal_places'>4</field>
+        <field name='symbol'>UYI</field>
+        <field name='position'>before</field>
+    </record>
+    <record model="res.currency" id="BCU_UR">
+        <field name='name'>U.R.</field>
+        <field name='rounding'>1</field>
+        <field name='decimal_places'>2</field>
+        <field name='symbol'>UYR</field>
+        <field name='position'>before</field>
+    </record>
+</odoo>

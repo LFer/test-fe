@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<odoo>
+	<data noupdate="True">
+		<record model="res.country.state">
+			<field name='name'>Artigas</field>
+			<field name='code'>AR</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Montevideo</field>
+			<field name='code'>MO</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Canelones</field>
+			<field name='code'>CA</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Cerro Largo</field>
+			<field name='code'>CL</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Colonia</field>
+			<field name='code'>CO</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Durazno</field>
+			<field name='code'>DU</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Flores</field>
+			<field name='code'>FS</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Florida</field>
+			<field name='code'>FD</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Lavalleja</field>
+			<field name='code'>LA</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Maldonado</field>
+			<field name='code'>MA</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Paysandú</field>
+			<field name='code'>PA</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Río Negro</field>
+			<field name='code'>RN</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Rivera</field>
+			<field name='code'>RV</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Rocha</field>
+			<field name='code'>RO</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Salto</field>
+			<field name='code'>SA</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>San José</field>
+			<field name='code'>SJ</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Soriano</field>
+			<field name='code'>SO</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Tacuarembó</field>
+			<field name='code'>TA</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+		<record model="res.country.state">
+			<field name='name'>Treinta y Tres</field>
+			<field name='code'>TT</field>
+			<field name='country_id' ref='base.uy'/>
+		</record>
+	</data>
+</odoo>

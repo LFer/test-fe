@@ -1,0 +1,36 @@
+<odoo>
+
+    <record model="ir.ui.view" id="tdt_cfe_partner">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="vat" position="replace">
+                <field name="tipo_documento"/>
+                <field name="vat" attrs="{'readonly': [('parent_id','!=',False)]}" string="Número de Documento"/>
+            </field>
+        </field>
+    </record>
+
+	<record id="required_address_fields" model="ir.ui.view">
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="model">res.partner</field>
+		<field name="name">Make address fields required</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='street']" position="attributes">
+				<attribute name="required">True</attribute>
+			</xpath>
+			<xpath expr="//field[@name='country_id']" position="attributes">
+				<attribute name="required">True</attribute>
+			</xpath>
+			<xpath expr="//field[@name='state_id']" position="attributes">
+				<attribute name="required">True</attribute>
+			</xpath>
+			<xpath expr="//field[@name='city']" position="attributes">
+				<attribute name="required">True</attribute>
+			</xpath>
+		</field>
+	</record>
+</odoo>

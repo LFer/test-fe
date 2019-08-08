@@ -1,0 +1,24 @@
+<odoo>
+	<act_window id="dgi_codes_action" name="DGI Codes" res_model="account.taxcode" view_mode="tree"/>
+	<menuitem id="dgi_codes_menu" name="DGI Codes" action="dgi_codes_action" parent="account.account_account_menu" sequence="3"/>
+	<record id="dgi_codes_tree" model="ir.ui.view">
+		<field name="name">DGI Codes</field>
+		<field name="model">account.taxcode</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="code"/>
+			</tree>
+		</field>
+	</record>
+	<record id="dgi_codes_form" model="ir.ui.view">
+		<field name="name">DGI Codes</field>
+		<field name="model">account.tax</field>
+		<field name="inherit_id" ref="account.view_tax_form"/>
+		<field name="arch" type="xml">
+			<field name="name" position="after">
+				<field name="dgi_tax_code"/>
+			</field>
+		</field>
+	</record>
+</odoo>
